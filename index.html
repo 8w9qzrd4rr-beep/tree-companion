@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Malout City Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2f2f2;
+    }
+
+    .phone-frame {
+      height: 90vh;
+      width: calc(90vh * (390 / 844));
+      margin: 5vh auto;
+      overflow: hidden;
+      border-radius: 40px;
+      border: 10px solid #1a1a1a;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    /* ---------- MENU BAR ---------- */
+    #menubar {
+      height: 60px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      z-index: 10;
+      position: relative;
+    }
+
+    #menubar h2 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: 0.3px;
+    }
+
+    .burger-btn {
+      background: none;
+      border: none;
+      width: 26px;
+      height: 20px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2.5px;
+      width: 100%;
+      background: #1a1a1a;
+      border-radius: 2px;
+    }
+
+    /* ---------- MAP ---------- */
+    #map {
+      flex: 1;
+      width: 100%;
+    }
+
+    /* ---------- TOOLBAR ---------- */
+    #toolbar {
+      height: 78px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: #fff;
+      border-top: 1px solid #eee;
+      position: relative;
+      z-index: 10;
+    }
+
+    #toolbar button {
+      background: none;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: #6b6b6b;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    #toolbar button:hover {
+      background: #f0f0f0;
+    }
+
+    #toolbar button.fab {
+      width: 56px;
+      height: 56px;
+      background: #2e7d32; /* single green accent */
+      color: #fff;
+      font-size: 26px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-14px);
+      box-shadow: 0 6px 14px rgba(46, 125, 50, 0.4);
+      border: 4px solid #fff;
+    }
+
+    #toolbar button.fab:hover {
+      background: #256628;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div id="menubar">
+      <button class="burger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <h2>TreeSaathi</h2>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="toolbar">
+      <button>T</button>
+      <button>T</button>
+      <button class="fab">+</button>
+      <button>T</button>
+      <button>T</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const malloutBounds = [
+      [74.4550, 30.1650],
+      [74.5300, 30.2150]
+    ];
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tiles.openfreemap.org/styles/liberty',
+      center: [74.4936, 30.1897],
+      zoom: 13,
+      minZoom: 12,
+      maxZoom: 19,
+      maxBounds: malloutBounds
+    });
+
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+  </script>
+</body>
+</html>
