@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Regina City Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../css/index.css">
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="phone-frame">
+    <div id="menubar">
+      <button class="burger-btn" aria-label="Menu">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+      <h2>TreeSaathi</h2>
+    </div>
+
+    <div id="map-wrap">
+      <div id="current-location">
+        
+      </div>
+      <div id="map">
+        <!-- map overlay -->
+      </div>
+      <div id="fab-overlay">
+        <!-- popup options -->
+      </div>
+      <div id="fab-options">
+        <div class="fab-option" data-action="plant">
+          <div class="icon-circle"><i class="fa fa-tree" aria-hidden="true"></i></div>
+          <span>Plant a Tree</span>
+        </div>
+        <div class="fab-option" data-action="water">
+          <div class="icon-circle"><i class="fa fa-tint" aria-hidden="true"></i></div>
+          <span>Water a Tree</span>
+        </div>
+        <div class="fab-option" data-action="report">
+          <div class="icon-circle"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+          <span>Report Issue</span>
+        </div>
+        <div class="fab-option" data-action="adopt">
+          <div class="icon-circle"><i class="fa fa-heart" aria-hidden="true"></i></div>
+          <span>Adopt a Tree</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="toolbar">
+      <button><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+      <button><i class="fa fa-book" aria-hidden="true"></i></button>
+      <button class="fab" id="fabBtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button><i class="fa fa-history" aria-hidden="true"></i></button>
+      <button><i class="fa fa-user" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="../script/index.js"></script>
+</body>
+</html>

@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Malout City Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
     * { box-sizing: border-box; }
 
     body {
@@ -221,95 +209,9 @@
     #toolbar button.fab.open i {
       transform: rotate(45deg); /* a rotated plus reads as a close/X icon */
     }
-  </style>
-</head>
-<body>
-  <div class="phone-frame">
-    <div id="menubar">
-      <button class="burger-btn" aria-label="Menu">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-      </button>
-      <h2>TreeSaathi</h2>
-    </div>
 
-    <div id="map-wrap">
-      <div id="map"></div>
-
-      <div id="fab-overlay"></div>
-
-      <div id="fab-options">
-        <div class="fab-option" data-action="plant">
-          <div class="icon-circle"><i class="fa fa-tree" aria-hidden="true"></i></div>
-          <span>Plant a Tree</span>
-        </div>
-        <div class="fab-option" data-action="water">
-          <div class="icon-circle"><i class="fa fa-tint" aria-hidden="true"></i></div>
-          <span>Water a Tree</span>
-        </div>
-        <div class="fab-option" data-action="report">
-          <div class="icon-circle"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
-          <span>Report Issue</span>
-        </div>
-        <div class="fab-option" data-action="adopt">
-          <div class="icon-circle"><i class="fa fa-heart" aria-hidden="true"></i></div>
-          <span>Adopt a Tree</span>
-        </div>
-      </div>
-    </div>
-
-    <div id="toolbar">
-      <button><i class="fa fa-map-marker" aria-hidden="true"></i></button>
-      <button><i class="fa fa-book" aria-hidden="true"></i></button>
-      <button class="fab" id="fabBtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-      <button><i class="fa fa-history" aria-hidden="true"></i></button>
-      <button><i class="fa fa-user" aria-hidden="true"></i></button>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script>
-    const malloutBounds = [
-      [74.4550, 30.1650],
-      [74.5300, 30.2150]
-    ];
-
-    const map = new maplibregl.Map({
-      container: 'map',
-      style: 'https://tiles.openfreemap.org/styles/liberty',
-      center: [74.4936, 30.1897],
-      zoom: 13,
-      minZoom: 12,
-      maxZoom: 19,
-      maxBounds: malloutBounds
-    });
-
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-    // ---------- FAB MENU ----------
-    const fabBtn = document.getElementById('fabBtn');
-    const fabOptions = document.getElementById('fab-options');
-    const fabOverlay = document.getElementById('fab-overlay');
-
-    function setFabOpen(open) {
-      fabBtn.classList.toggle('open', open);
-      fabOptions.classList.toggle('open', open);
-      fabOverlay.classList.toggle('open', open);
+    #current-location{
+      color: gray;
+      font-size: 10px;
+      background-color: #f5f4e5;
     }
-
-    fabBtn.addEventListener('click', () => {
-      const isOpen = fabBtn.classList.contains('open');
-      setFabOpen(!isOpen);
-    });
-
-    fabOverlay.addEventListener('click', () => setFabOpen(false));
-
-    document.querySelectorAll('.fab-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        // handle each action here
-        console.log('Selected action:', opt.dataset.action);
-        setFabOpen(false);
-      });
-    });
-  </script>
-</body>
-</html>
