@@ -15,12 +15,6 @@ const map = new maplibregl.Map({
 
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
-// ---------- KEEP THE MAP CANVAS IN SYNC WITH ITS CONTAINER ----------
-// The app shell's size changes between phone / tablet / desktop
-// breakpoints (see css/index.css), and mobile browsers resize their
-// viewport when the address bar shows/hides. MapLibre caches the
-// canvas size, so it needs an explicit resize() call whenever the
-// #map container itself changes size.
 const mapWrap = document.getElementById('map-wrap');
 if (window.ResizeObserver) {
   const resizeObserver = new ResizeObserver(() => map.resize());
@@ -41,6 +35,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn(err.message);
     locationCanvas.textContent = "Location unavailable";
   }
+
+  try {
+    const response = await fetch('/api/v1/trees');
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json(); 
+    // Process the received data here
+    alert(JSON.stringify(result));
+  } catch (error) {
+    console.error("Failed to fetch trees:", error);
+  }  
 });
 
 function updateMap(loc) {
@@ -96,14 +102,51 @@ fabBtn.addEventListener('click', () => {
 
 fabOverlay.addEventListener('click', () => setFabOpen(false));
 
-document.querySelectorAll('.fab-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    // handle each action here
-    console.log('Selected action:', opt.dataset.action);
-    setFabOpen(false);
-  });
+// ---------- ADD TREE FORM ----------
+const addTreeOverlay = document.getElementById('add-tree-overlay');
+const addTreeSheet = document.getElementById('add-tree-sheet');
+const addTreeForm = document.getElementById('add-tree-form');
+const cancelAddTree = document.getElementById('cancelAddTree');
+
+function popForm() {
+  addTreeOverlay.classList.add('open');
+  addTreeSheet.classList.add('open');
+  addTreeSheet.setAttribute('aria-hidden', 'false');
+}
+
+function closeForm() {
+  addTreeOverlay.classList.remove('open');
+  addTreeSheet.classList.remove('open');
+  addTreeSheet.setAttribute('aria-hidden', 'true');
+  addTreeForm.reset();
+}
+
+// EL 1 — plantTree opens the form
+document.getElementById("plantTree").addEventListener('click', () => {
+  setFabOpen(false);
+  popForm();
+
+  // ################################################################
+  // # TODO: your fetch goes here if the form needs to load anything
+  // # (e.g. species list, current location, draft data) before it's
+  // # shown to the user.
+  // ################################################################
 });
 
-document.getElementById("plantTree").addEventListener('click', () => {
-  alert("Hello");
+// EL 2 — cancel closes the form, no save
+cancelAddTree.addEventListener('click', () => {
+  closeForm();
+});
+
+// clicking the dark backdrop behaves the same as cancel
+addTreeOverlay.addEventListener('click', () => {
+  closeForm();
+});
+
+// EL 3 — submit closes the form after saving
+addTreeForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const formData = new FormData(addTreeForm);
+  await fetch('/api/v1/add/trees', { method: 'POST', body: formData });
+  closeForm();
 });
