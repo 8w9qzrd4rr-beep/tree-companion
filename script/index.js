@@ -43,6 +43,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     const result = await response.json(); 
     // Process the received data here
+    const treeList = result.data;
+    treeList.forEach(function (item) {
+    const loc = {
+    latitude: item.lat,
+    longitude: item.long
+  };
+  updateMapTree(loc);
+});
     alert(JSON.stringify(result));
   } catch (error) {
     console.error("Failed to fetch trees:", error);
@@ -58,6 +66,12 @@ function updateMap(loc) {
   dotElement.style.border = '2px solid #ffffff';
 
   new maplibregl.Marker({ element: dotElement })
+    .setLngLat([loc.longitude, loc.latitude])
+    .addTo(map);
+}
+
+function updateMapTree(loc) {
+  let marker = new maplibregl.Marker()
     .setLngLat([loc.longitude, loc.latitude])
     .addTo(map);
 }
@@ -147,6 +161,8 @@ addTreeOverlay.addEventListener('click', () => {
 addTreeForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData(addTreeForm);
-  await fetch('/api/v1/add/trees', { method: 'POST', body: formData });
+  const location = await getLocation();
+  formData.append('loc', JSON.stringify(location));
+  await fetch('/api/v1/add/trees', { method: 'POST', body: formData});
   closeForm();
 });
