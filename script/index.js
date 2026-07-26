@@ -1,3 +1,25 @@
+function getLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation is not supported by this browser."));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy
+        });
+      },
+      (error) => {
+        reject(new Error("Error getting location: " + error.message));
+      }
+    );
+  });
+}
+
 const reginaBounds = [
   [-104.8000, 50.3500], // Southwest coordinates [lng, lat]
   [-104.4000, 50.5500]  // Northeast coordinates [lng, lat]
@@ -76,28 +98,6 @@ function updateMapTree(loc) {
     .addTo(map);
 }
 
-function getLocation() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject(new Error("Geolocation is not supported by this browser."));
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        resolve({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy: position.coords.accuracy
-        });
-      },
-      (error) => {
-        reject(new Error("Error getting location: " + error.message));
-      }
-    );
-  });
-}
-
 // ---------- FAB MENU ----------
 const fabBtn = document.getElementById('fabBtn');
 const fabOptions = document.getElementById('fab-options');
@@ -164,5 +164,6 @@ addTreeForm.addEventListener('submit', async (event) => {
   const location = await getLocation();
   formData.append('loc', JSON.stringify(location));
   await fetch('/api/v1/add/trees', { method: 'POST', body: formData});
+  updateMapTree(location)
   closeForm();
 });
