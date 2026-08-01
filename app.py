@@ -24,7 +24,8 @@ async def root():
 
 @app.get("/api/v1/trees")
 async def get_trees():
-    return {"data": mockTrees}
+    response = supabase.table("trees").select("*").execute()
+    return {"data": response.data}
 
 @app.post("/api/v1/add/trees")
 async def add_tree(

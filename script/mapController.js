@@ -25,20 +25,20 @@ if (window.ResizeObserver) {
   window.addEventListener('orientationchange', () => map.resize());
 }
 
-export function updateMap(loc) {
-  const dotElement = document.createElement('div');
-  dotElement.style.width = '12px';
-  dotElement.style.height = '12px';
-  dotElement.style.backgroundColor = '#f63b3b';
-  dotElement.style.borderRadius = '50%';
-  dotElement.style.border = '2px solid #ffffff';
+export function updateMapTree(loc, mapInstance) {
+    const dotElement = document.createElement('div');
+    dotElement.style.width = '12px';
+    dotElement.style.height = '12px';
+    dotElement.style.backgroundColor = '#f63b3b';
+    dotElement.style.borderRadius = '50%';
+    dotElement.style.border = '2px solid #ffffff';
 
-  new maplibregl.Marker({ element: dotElement })
-    .setLngLat([loc.longitude, loc.latitude])
-    .addTo(map);
+    new maplibregl.Marker({ element: dotElement })
+        .setLngLat([loc.longitude, loc.latitude])
+        .addTo(mapInstance);
 }
 
-export function updateMapTree(loc) {
+export function updateMap(loc) {
   let marker = new maplibregl.Marker()
     .setLngLat([loc.longitude, loc.latitude])
     .addTo(map);

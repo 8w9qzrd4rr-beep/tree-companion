@@ -1,10 +1,9 @@
 export async function fetchTrees() {
-  const response = await fetch('/api/v1/trees');
-  if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  const result = await response.json();
-  return result;
+    const response = await fetch('/api/v1/trees');
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
 }
 
 export async function addTree(formData) {

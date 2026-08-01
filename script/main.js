@@ -9,25 +9,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     let loc = await getLocation();
     locationCanvas.textContent = `Lat: ${loc.latitude.toFixed(5)}, Lon: ${loc.longitude.toFixed(5)}`;
-    updateMap(loc);
+    updateMapTree(loc);
   } catch (err) {
     console.warn(err.message);
     locationCanvas.textContent = "Location unavailable";
   }
 
   try {
-    const result = await fetchTrees();
-    // Process the received data here
-    const treeList = result.data;
-    treeList.forEach(function (item) {
-    const loc = {
-    latitude: item.latitude,
-    longitude: item.longitude
-  };
-  updateMapTree(loc);
-});
-    alert(JSON.stringify(result));
-  } catch (error) {
-    console.error("Failed to fetch trees:", error);
-  }
+        const result = await fetchTrees();
+        const treeList = result.data;
+        
+        treeList.forEach(function (item) {
+            const loc = {
+                latitude: item.latitude,
+                longitude: item.longitude
+            };
+            updateMap(loc, map); 
+        });
+    } catch (error) {
+        console.error("Failed to load trees:", error);
+    }
 });

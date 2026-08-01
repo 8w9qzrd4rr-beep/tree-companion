@@ -25,12 +25,7 @@ export function closeForm() {
 document.getElementById("plantTree").addEventListener('click', () => {
   setFabOpen(false);
   popForm();
-
-  // ################################################################
-  // # TODO: your fetch goes here if the form needs to load anything
-  // # (e.g. species list, current location, draft data) before it's
-  // # shown to the user.
-  // ################################################################
+  
 });
 
 // EL 2 — cancel closes the form, no save
