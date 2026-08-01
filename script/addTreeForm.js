@@ -50,6 +50,6 @@ addTreeForm.addEventListener('submit', async (event) => {
   const location = await getLocation();
   formData.append('loc', JSON.stringify(location));
   await fetch('/api/v1/add/trees', { method: 'POST', body: formData});
-  updateMapTree(location)
+  updateMapTree(location);
   closeForm();
 });

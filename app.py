@@ -5,7 +5,14 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import json
 from mockdata import mockTrees, mockUsers #,mockAdopterGroup
-#50.505295, -104.662981
+from dotenv import load_dotenv
+from supabase import create_client, Client
+from datetime import date, datetime
+
+load_dotenv()
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
 
 app = FastAPI()
 app.mount("/script", StaticFiles(directory="script"), name="script")
@@ -26,16 +33,24 @@ async def add_tree(
     treeNotes: Optional[str] = Form(None),
     treeSpeciesUp: Optional[UploadFile] = File(None),
     treePhoto: Optional[UploadFile] = File(None),
-    loc : str = Form(...)
+    loc: str = Form(...),
 ):
     loc_dict = json.loads(loc)
 
     tree_data = {
-        "treeSpecies": treeSpecies,
-        "treeHeight": treeHeight,
-        "treeNotes": treeNotes,
-        "long": loc_dict.get("longitude"),
-        "lat": loc_dict.get("latitude")
+        "species": treeSpecies,
+        "description": treeNotes,
+        "height": treeHeight,
+        "diameter": None,
+        "planting_date": date.today().isoformat(),
+        "verified_bool": False,
+        "last_activity": datetime.today().isoformat(),
+        "status": "active",
+        "latitude": loc_dict.get("latitude"),
+        "longitude": loc_dict.get("longitude"),
+        "address": loc_dict.get("address"),
+        "owner_id": 11
     }
-    mockTrees.append(tree_data)
-    return {"message": "Done Posting"}
+
+    response = supabase.table("trees").insert(tree_data).execute()
+    return {"message": "Done Posting", "tree": response.data[0]}
