@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Log In · TreeSaathi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="login-shell">
+      <div class="login-brand">
+        <div class="icon-circle"><i class="fa fa-tree" aria-hidden="true"></i></div>
+        <h1>TreeSaathi</h1>
+        <p>Plant. Water. Watch it grow.</p>
+      </div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+            <button type="button" class="toggle-visibility" id="toggleVisibility" aria-label="Show password">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <p class="error-text" id="errorText"></p>
+
+        <div class="form-row">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe">
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Log In</button>
+      </form>
+
+      <div class="divider">or continue with</div>
+
+      <div class="social-row">
+        <button class="btn-social" type="button"><i class="fa fa-google" aria-hidden="true"></i> Google</button>
+        <button class="btn-social" type="button"><i class="fa fa-apple" aria-hidden="true"></i> Apple</button>
+      </div>
+
+      <p class="signup-row">Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+  </div>
+
+  <script type="module" src="/script/login.js"></script>
+</body>
+</html>

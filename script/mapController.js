@@ -25,7 +25,7 @@ if (window.ResizeObserver) {
   window.addEventListener('orientationchange', () => map.resize());
 }
 
-export function updateMapTree(loc, mapInstance) {
+export function updateMapTree(loc) {
     const dotElement = document.createElement('div');
     dotElement.style.width = '12px';
     dotElement.style.height = '12px';
@@ -35,7 +35,7 @@ export function updateMapTree(loc, mapInstance) {
 
     new maplibregl.Marker({ element: dotElement })
         .setLngLat([loc.longitude, loc.latitude])
-        .addTo(mapInstance);
+        .addTo(map);
 }
 
 export function updateMap(loc) {

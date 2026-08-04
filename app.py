@@ -22,6 +22,22 @@ app.mount("/css", StaticFiles(directory="css"), name="css")
 async def root():
     return FileResponse("templates/index.html")
 
+@app.get("/login")
+async def login_page():
+    return FileResponse("templates/login.html")
+
+@app.get("/profile")
+async def profile_page():
+    return FileResponse("templates/profile.html")
+
+@app.get("/history")
+async def history_page():
+    return FileResponse("templates/history.html")
+
+@app.get("/dictionary")
+async def dictionary_page():
+    return FileResponse("templates/dictionary.html")
+
 @app.get("/api/v1/trees")
 async def get_trees():
     response = supabase.table("trees").select("*").execute()
@@ -50,7 +66,7 @@ async def add_tree(
         "latitude": loc_dict.get("latitude"),
         "longitude": loc_dict.get("longitude"),
         "address": loc_dict.get("address"),
-        "owner_id": 11
+        "owner_id": 7
     }
 
     response = supabase.table("trees").insert(tree_data).execute()

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Profile · TreeSaathi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/profile.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div id="menubar">
+      <button class="burger-btn" aria-label="Menu">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+      <h2>Profile</h2>
+    </div>
+
+    <div id="content">
+      <div id="profile-header">
+        <div class="avatar" id="avatarInitials">A</div>
+        <h3 id="profileName">Amina Khan</h3>
+        <p id="profileLocation"><i class="fa fa-map-marker" aria-hidden="true"></i> Regina, SK</p>
+      </div>
+
+      <div id="stats-row">
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">PLANTED</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">34</div>
+          <div class="stat-label">WATERED</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">ADOPTED</div>
+        </div>
+      </div>
+
+      <div id="badges-section">
+        <p class="section-title">Badges</p>
+        <div id="badges-row">
+          <div class="badge">
+            <div class="icon-circle"><i class="fa fa-seedling" aria-hidden="true"></i></div>
+            <span>First Tree</span>
+          </div>
+          <div class="badge">
+            <div class="icon-circle"><i class="fa fa-tint" aria-hidden="true"></i></div>
+            <span>Waterer</span>
+          </div>
+          <div class="badge">
+            <div class="icon-circle"><i class="fa fa-heart" aria-hidden="true"></i></div>
+            <span>Adopter</span>
+          </div>
+          <div class="badge locked">
+            <div class="icon-circle"><i class="fa fa-trophy" aria-hidden="true"></i></div>
+            <span>100 Trees</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-title" style="padding-left: 18px;">Account</p>
+      <div id="settings-list">
+        <div class="settings-item">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <span>Edit Profile</span>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div class="settings-item">
+          <i class="fa fa-bell-o" aria-hidden="true"></i>
+          <span>Notifications</span>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div class="settings-item">
+          <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+          <span>Saved Trees</span>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div class="settings-item">
+          <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+          <span>Help &amp; Support</span>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div class="settings-item danger" id="logoutBtn">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          <span>Log Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="toolbar">
+      <a href="/"><button><i class="fa fa-map-marker" aria-hidden="true"></i></button></a>
+      <a href="/dictionary"><button><i class="fa fa-book" aria-hidden="true"></i></button></a>
+      <a href="/"><button class="fab"><i class="fa fa-plus" aria-hidden="true"></i></button></a>
+      <a href="/history"><button><i class="fa fa-history" aria-hidden="true"></i></button></a>
+      <a href="/profile"><button class="active"><i class="fa fa-user" aria-hidden="true"></i></button></a>
+    </div>
+  </div>
+
+  <script type="module" src="/script/profile.js"></script>
+</body>
+</html>

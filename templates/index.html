@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Regina City Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="/css/index.css">
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,11 +51,11 @@
     </div>
 
     <div id="toolbar">
-      <button><i class="fa fa-map-marker" aria-hidden="true"></i></button>
-      <button><i class="fa fa-book" aria-hidden="true"></i></button>
+      <a href="/"><button class="active"><i class="fa fa-map-marker" aria-hidden="true"></i></button></a>
+      <a href="/dictionary"><button><i class="fa fa-book" aria-hidden="true"></i></button></a>
       <button class="fab" id="fabBtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-      <button><i class="fa fa-history" aria-hidden="true"></i></button>
-      <button><i class="fa fa-user" aria-hidden="true"></i></button>
+      <a href="/history"><button><i class="fa fa-history" aria-hidden="true"></i></button></a>
+      <a href="/profile"><button><i class="fa fa-user" aria-hidden="true"></i></button></a>
     </div>
 
     <!-- ---------- ADD TREE MODAL ---------- -->
