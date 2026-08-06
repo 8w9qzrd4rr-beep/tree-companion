@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Your Details · TreeSaathi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f2f2f2;
+    overscroll-behavior: none;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; }
+
+  .app-shell {
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  @media (min-width: 640px) {
+    .app-shell {
+      max-width: 480px;
+      height: min(100vh, 900px);
+      height: min(100dvh, 900px);
+      margin: 24px auto;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      border: 1px solid #e5e5e5;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-shell {
+      max-width: 520px;
+      margin: 40px auto;
+    }
+  }
+
+  /* ============ DETAILS PAGE ============ */
+  .signup-shell {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .step-track {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 28px;
+    flex-shrink: 0;
+  }
+
+  .step-dot {
+    width: 26px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e5e5;
+  }
+
+  .step-dot.active,
+  .step-dot.done { background: #2e7d32; }
+
+  .back-row {
+    padding-top: 18px;
+    flex-shrink: 0;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #6b6b6b;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .back-btn:hover { color: #1a1a1a; }
+
+  .signup-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3vh;
+    padding-bottom: 26px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .signup-brand .icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: #2e7d32;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 18px rgba(46, 125, 50, 0.3);
+  }
+
+  .signup-brand h1 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .signup-brand p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #8a8a8a;
+    max-width: 260px;
+  }
+
+  #details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-shrink: 0;
+    padding-bottom: 10px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .input-wrap:focus-within {
+    border-color: #2e7d32;
+    background: #fff;
+  }
+
+  .input-wrap i { color: #9a9a9a; font-size: 14px; width: 16px; text-align: center; }
+
+  .input-wrap input {
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1a1a1a;
+    width: 100%;
+  }
+
+  .input-wrap .country-code {
+    font-size: 13.5px;
+    color: #6b6b6b;
+    font-weight: 500;
+    padding-right: 8px;
+    border-right: 1px solid #e5e5e5;
+    flex-shrink: 0;
+  }
+
+  .field-hint {
+    font-size: 11px;
+    color: #999;
+    margin: 0;
+  }
+
+  /* Notification preferences */
+  .pref-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .pref-section > label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .pref-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+  }
+
+  .pref-row + .pref-row { margin-top: 8px; }
+
+  .pref-copy { display: flex; align-items: center; gap: 12px; }
+
+  .pref-copy i {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: #eaf4ea;
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .pref-copy .pref-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  .pref-copy .pref-sub {
+    font-size: 11.5px;
+    color: #999;
+  }
+
+  .switch {
+    position: relative;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .switch-track {
+    position: absolute;
+    inset: 0;
+    background: #d8d8d8;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.18s ease;
+  }
+
+  .switch-track::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.18s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+
+  .switch input:checked + .switch-track {
+    background: #2e7d32;
+  }
+
+  .switch input:checked + .switch-track::before {
+    transform: translateX(18px);
+  }
+
+  .error-text {
+    font-size: 12px;
+    color: #c0392b;
+    margin: -6px 0 0;
+    min-height: 14px;
+  }
+
+  .btn-primary {
+    margin-top: 6px;
+    width: 100%;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 13px 0;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .btn-primary:hover { background: #256628; }
+  .btn-primary:disabled { background: #a8c9aa; cursor: not-allowed; }
+
+  .skip-row {
+    text-align: center;
+    padding: 16px 0 30px;
+    flex-shrink: 0;
+  }
+
+  .skip-row button {
+    background: none;
+    border: none;
+    color: #8a8a8a;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="signup-shell">
+
+      <div class="step-track">
+        <div class="step-dot done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+      </div>
+
+      <div class="back-row">
+        <button class="back-btn" type="button" onclick="window.location.href='/otp.html'">
+          <i class="fa fa-angle-left" aria-hidden="true"></i> Back
+        </button>
+      </div>
+
+      <div class="signup-brand">
+        <div class="icon-circle"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+        <h1>Tell us about you</h1>
+        <p>A few last details so the community knows who's planting.</p>
+      </div>
+
+      <form id="details-form" novalidate>
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <div class="input-wrap">
+            <i class="fa fa-id-card-o" aria-hidden="true"></i>
+            <input type="text" id="name" name="name" placeholder="Anaya Sharma" autocomplete="name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <div class="input-wrap">
+            <span class="country-code">+91</span>
+            <input type="tel" id="phone" name="phone" placeholder="98765 43210" autocomplete="tel" inputmode="numeric">
+          </div>
+          <p class="field-hint">Used for adoption reminders and watering alerts.</p>
+        </div>
+
+        <div class="pref-section">
+          <label>Notification preferences</label>
+
+          <div class="pref-row">
+            <div class="pref-copy">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              <div>
+                <div class="pref-title">Email</div>
+                <div class="pref-sub">Updates on your adopted trees</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifyEmail" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-row">
+            <div class="pref-copy">
+              <i class="fa fa-bell-o" aria-hidden="true"></i>
+              <div>
+                <div class="pref-title">Push</div>
+                <div class="pref-sub">Watering reminders</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifyPush" checked>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+          <div class="pref-row">
+            <div class="pref-copy">
+              <i class="fa fa-commenting-o" aria-hidden="true"></i>
+              <div>
+                <div class="pref-title">SMS</div>
+                <div class="pref-sub">Time-sensitive alerts only</div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifySms">
+              <span class="switch-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <p class="error-text" id="errorText"></p>
+
+        <button type="submit" class="btn-primary">Finish setup</button>
+      </form>
+
+      <div class="skip-row">
+        <button type="button" id="skipBtn">Skip for now</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const form = document.getElementById('details-form');
+  const nameInput = document.getElementById('name');
+  const phoneInput = document.getElementById('phone');
+  const notifyEmail = document.getElementById('notifyEmail');
+  const notifyPush = document.getElementById('notifyPush');
+  const notifySms = document.getElementById('notifySms');
+  const errorText = document.getElementById('errorText');
+  const skipBtn = document.getElementById('skipBtn');
+
+  async function submitDetails(payload) {
+    // Replace with your real profile-completion endpoint:
+    // const res = await fetch('/api/users/me', {
+    //   method: 'PATCH',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(payload)
+    // });
+    // if (!res.ok) throw new Error((await res.json()).message);
+
+    sessionStorage.removeItem('signup_email');
+    window.location.href = '/home';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorText.textContent = '';
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+
+    if (name.length < 2) {
+      errorText.textContent = 'Enter your full name.';
+      return;
+    }
+    if (phone && !/^\d{7,10}$/.test(phone.replace(/\s+/g, ''))) {
+      errorText.textContent = 'Enter a valid phone number.';
+      return;
+    }
+
+    try {
+      await submitDetails({
+        name,
+        phone: phone ? `+91${phone.replace(/\s+/g, '')}` : null,
+        notification_preferences: {
+          email: notifyEmail.checked,
+          push: notifyPush.checked,
+          sms: notifySms.checked
+        }
+      });
+    } catch (err) {
+      errorText.textContent = err.message || 'Something went wrong. Please try again.';
+    }
+  });
+
+  skipBtn.addEventListener('click', async () => {
+    errorText.textContent = '';
+    try {
+      await submitDetails({
+        notification_preferences: {
+          email: notifyEmail.checked,
+          push: notifyPush.checked,
+          sms: notifySms.checked
+        }
+      });
+    } catch (err) {
+      errorText.textContent = err.message || 'Something went wrong. Please try again.';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sign Up · TreeSaathi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f2f2f2;
+    overscroll-behavior: none;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; }
+
+  .app-shell {
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  @media (min-width: 640px) {
+    .app-shell {
+      max-width: 480px;
+      height: min(100vh, 900px);
+      height: min(100dvh, 900px);
+      margin: 24px auto;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      border: 1px solid #e5e5e5;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-shell {
+      max-width: 520px;
+      margin: 40px auto;
+    }
+  }
+
+  /* ============ SIGNUP PAGE ============ */
+  .signup-shell {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .step-track {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 28px;
+    flex-shrink: 0;
+  }
+
+  .step-dot {
+    width: 26px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e5e5;
+  }
+
+  .step-dot.active { background: #2e7d32; }
+
+  .signup-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6vh;
+    padding-bottom: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .signup-brand .icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: #2e7d32;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 18px rgba(46, 125, 50, 0.3);
+  }
+
+  .signup-brand h1 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .signup-brand p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #8a8a8a;
+    max-width: 260px;
+  }
+
+  #signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .input-wrap:focus-within {
+    border-color: #2e7d32;
+    background: #fff;
+  }
+
+  .input-wrap i { color: #9a9a9a; font-size: 14px; width: 16px; text-align: center; }
+
+  .input-wrap input {
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1a1a1a;
+    width: 100%;
+  }
+
+  .toggle-visibility {
+    background: none;
+    border: none;
+    color: #9a9a9a;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0;
+  }
+
+  .hint-text {
+    font-size: 11.5px;
+    color: #999;
+    margin: 0;
+    min-height: 14px;
+  }
+
+  .hint-text.taken { color: #c0392b; }
+  .hint-text.available { color: #2e7d32; }
+
+  .strength-meter {
+    display: flex;
+    gap: 5px;
+    margin-top: 2px;
+  }
+
+  .strength-meter span {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e5e5;
+    transition: background 0.2s ease;
+  }
+
+  .strength-meter.weak span:nth-child(1) { background: #c0392b; }
+  .strength-meter.fair span:nth-child(1),
+  .strength-meter.fair span:nth-child(2) { background: #e6a23c; }
+  .strength-meter.good span:nth-child(1),
+  .strength-meter.good span:nth-child(2),
+  .strength-meter.good span:nth-child(3) { background: #2e7d32; }
+  .strength-meter.strong span { background: #2e7d32; }
+
+  .error-text {
+    font-size: 12px;
+    color: #c0392b;
+    margin: -6px 0 0;
+    min-height: 14px;
+  }
+
+  .terms-text {
+    font-size: 11.5px;
+    color: #999;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .terms-text a { color: #2e7d32; font-weight: 500; }
+
+  .btn-primary {
+    margin-top: 4px;
+    width: 100%;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 13px 0;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .btn-primary:hover { background: #256628; }
+  .btn-primary:disabled { background: #a8c9aa; cursor: not-allowed; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 16px;
+    color: #b0b0b0;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+  }
+
+  .social-row { display: flex; gap: 12px; flex-shrink: 0; }
+
+  .btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    border-radius: 12px;
+    padding: 11px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+  }
+
+  .btn-social:hover { background: #fafafa; }
+  .btn-social i.fa-google { color: #db4437; }
+  .btn-social i.fa-apple { color: #1a1a1a; }
+
+  .login-row {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    padding: 22px 0 30px;
+    flex-shrink: 0;
+  }
+
+  .login-row a { color: #2e7d32; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="signup-shell">
+
+      <div class="step-track">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+
+      <div class="signup-brand">
+        <div class="icon-circle"><i class="fa fa-tree" aria-hidden="true"></i></div>
+        <h1>Create your account</h1>
+        <p>Just the basics for now — you can fill in the rest after.</p>
+      </div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <input type="text" id="username" name="username" placeholder="yourusername" autocomplete="username">
+          </div>
+          <p class="hint-text" id="usernameHint"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" id="password" name="password" placeholder="Min. 8 characters" autocomplete="new-password">
+            <button type="button" class="toggle-visibility" id="toggleVisibility" aria-label="Show password">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="strength-meter" id="strengthMeter">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <p class="error-text" id="errorText"></p>
+
+        <p class="terms-text">
+          By continuing, you agree to TreeSaathi's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+        </p>
+
+        <button type="submit" class="btn-primary">Continue</button>
+      </form>
+
+      <div class="divider">or continue with</div>
+
+      <div class="social-row">
+        <button class="btn-social" type="button"><i class="fa fa-google" aria-hidden="true"></i> Google</button>
+        <button class="btn-social" type="button"><i class="fa fa-apple" aria-hidden="true"></i> Apple</button>
+      </div>
+
+      <p class="login-row">Already have an account? <a href="/login.html">Log in</a></p>
+    </div>
+  </div>
+  <script type="module" src="/script/signup.js"></script>
+</body>
+</html>
